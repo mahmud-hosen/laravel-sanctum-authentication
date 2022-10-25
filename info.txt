@@ -1,0 +1,16 @@
+
+GET:
+    Authorization Type:
+    Type: Bearer Token
+
+    Headers:
+    Authorization :    Bearer  RhnaVHe5cRlwLbwlxugdsUOJyenAYEbB2mllIk
+
+
+ POST:
+    Authorization Type:
+    Type: Bearer Token
+    Headers::
+    Content-Type:   application/json
+
+
