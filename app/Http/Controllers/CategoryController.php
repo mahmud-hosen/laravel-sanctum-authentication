@@ -6,6 +6,9 @@ use App\Models\category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Response;
+use Illuminate\Support\Facades\Validator;
+
+use App\Http\Requests\StoreCategorytRequest;
 
 class CategoryController extends Controller
 {
@@ -26,7 +29,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -37,7 +40,61 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //-----------  Validation way : 01 ------------------
+        // $validator = Validator::make($request->all(),[
+        //     'name' => 'required',
+        //     'price' => 'required',
+        //     'description' => 'required'
+        // ]);
+
+        // if($validator->fails()){
+        //     return response($validator->messages(), 200);
+        // } else {
+        //     $info = new category;
+        //     $info->name = $request->name;
+        //     $info->price = $request->price;
+        //     $info->description = $request->description;
+        //     $info->save();
+
+        //     if($info)
+        //     {
+        //         return response()->json([
+        //             'message'=> ['Category Stored']
+        //         ]);
+        //     } 
+        // }
+
+
+        //--------------- 
+        $rules = [
+            'name' => 'required',
+            'price' => 'required',
+            'description' => 'required'
+        ];
+
+        $customMessages = [
+            'required' => 'The :attribute field is required .'
+        ];
+
+        $validator = Validator::make( $request->all(), $rules, $customMessages );
+
+        if($validator->fails()){
+            return response($validator->messages(), 200);
+        } else {
+            $info = new category;
+            $info->name = $request->name;
+            $info->price = $request->price;
+            $info->description = $request->description;
+            $info->save();
+
+            if($info)
+            {
+                return response()->json([
+                    'message'=> ['Category Stored']
+                ]);
+            } 
+        }
+
     }
 
     /**

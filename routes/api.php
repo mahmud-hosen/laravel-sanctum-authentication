@@ -24,10 +24,14 @@ use Illuminate\Support\Facades\DB;
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
-   Route::get("index",[CategoryController::class,'index']);
+   Route::get('category/info',[CategoryController::class,'index']);
+   Route::post('category/store',[CategoryController::class,'store']);
+
+   Route::get('user/info',   [UserController::class,'userInfo']);
+
 
 });
 
 
-Route::post("login",[UserController::class,'index']);
+Route::post('login',[UserController::class,'login'])->name('login');
 
